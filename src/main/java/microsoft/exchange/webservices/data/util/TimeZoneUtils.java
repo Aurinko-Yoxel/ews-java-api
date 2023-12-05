@@ -484,6 +484,7 @@ public final class TimeZoneUtils {
     map.put("Europe/Istanbul", "Turkey Standard Time");
     map.put("Europe/Jersey", "GMT Standard Time");
     map.put("Europe/Kaliningrad", "Kaliningrad Standard Time");
+    map.put("Europe/Kyiv", "FLE Standard Time");
     map.put("Europe/Kiev", "FLE Standard Time");
     map.put("Europe/Lisbon", "GMT Standard Time");
     map.put("Europe/Ljubljana", "Central Europe Standard Time");

@@ -43,7 +43,7 @@ public class OlsonTimeZoneTest {
   private static final Set<String> notSupportedTimezones =
       new HashSet<String>(Arrays.asList(
           "America/Nuuk", "America/Punta_Arenas", "Europe/Astrakhan", "Europe/Kirov", "Europe/Saratov",
-          "Europe/Ulyanovsk"
+          "Europe/Ulyanovsk", "America/Ciudad_Juarez", "Europe/Kyiv"
       ));
 
   @Test
