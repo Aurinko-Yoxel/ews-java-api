@@ -265,7 +265,7 @@ public class ItemSchema extends ServiceObjectSchema {
   public static final PropertyDefinition Id = new ComplexPropertyDefinition<ItemId>(
       ItemId.class,
       XmlElementNames.ItemId, FieldUris.ItemId, EnumSet
-      .of(PropertyDefinitionFlags.CanFind),
+      .of(PropertyDefinitionFlags.CanFind, PropertyDefinitionFlags.CanSet),
       ExchangeVersion.Exchange2007_SP1,
       new ICreateComplexPropertyDelegate<ItemId>() {
         public ItemId createComplexProperty() {

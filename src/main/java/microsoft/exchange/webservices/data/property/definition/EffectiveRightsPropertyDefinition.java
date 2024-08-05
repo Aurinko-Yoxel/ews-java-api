@@ -106,12 +106,11 @@ public final class EffectiveRightsPropertyDefinition extends PropertyDefinition 
           } else if (reader.getLocalName().equals(XmlElementNames.Read)) {
             if (reader.readElementValue(Boolean.class)) {
               value.add(EffectiveRights.Read);
-            } else if (reader.getLocalName().equals(XmlElementNames.ViewPrivateItems)) {
-              if (reader.readElementValue(Boolean.class)) {
-                value.add(EffectiveRights.ViewPrivateItems);
-              }
             }
-
+          } else if (reader.getLocalName().equals(XmlElementNames.ViewPrivateItems)) {
+            if (reader.readElementValue(Boolean.class)) {
+              value.add(EffectiveRights.ViewPrivateItems);
+            }
           }
         }
 
