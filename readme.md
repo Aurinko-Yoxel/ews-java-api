@@ -25,5 +25,20 @@ For Documentation on how to use _ews-java-api_ with maven or gradle please refer
 ### Building from source
 To build a JAR from the source yourself, please see [this page](https://github.com/OfficeDev/ews-java-api/wiki/Building-EWS-JAVA-API).
 
+### HTTP request retries
+
+Configure the number of retries after a retryable HTTP I/O failure on the service:
+
+```java
+ExchangeService service = new ExchangeService();
+service.setHttpRequestRetryCount(2); // At most 3 attempts, including the initial request.
+```
+
+The default is 3 retries. Set the count to 0 to disable retries. The setting applies
+to both normal and pooled HTTP clients, including clients already initialized.
+Apache HttpClient's default exception and request-safety checks still apply; HTTP
+error responses are not retried by this setting. It does not impose an overall
+request deadline.
+
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.

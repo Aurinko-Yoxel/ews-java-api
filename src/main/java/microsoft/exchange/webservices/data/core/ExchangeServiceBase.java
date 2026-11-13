@@ -69,6 +69,7 @@ import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.BasicHttpClientConnectionManager;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -99,6 +100,10 @@ public abstract class ExchangeServiceBase implements Closeable {
    * The timeout.
    */
   private int timeout = 100000;
+
+  /** Retry policy shared by the normal and pooled HTTP clients. */
+  private volatile DefaultHttpRequestRetryHandler httpRequestRetryHandler =
+      new DefaultHttpRequestRetryHandler(3, false);
 
   /**
    * The trace enabled.
@@ -189,6 +194,7 @@ public abstract class ExchangeServiceBase implements Closeable {
     this.traceListener = service.getTraceListener();
     this.traceFlags = service.getTraceFlags();
     this.timeout = service.getTimeout();
+    setHttpRequestRetryCount(service.getHttpRequestRetryCount());
     this.preAuthenticate = service.isPreAuthenticate();
     this.userAgent = service.getUserAgent();
     this.acceptGzipEncoding = service.getAcceptGzipEncoding();
@@ -203,6 +209,8 @@ public abstract class ExchangeServiceBase implements Closeable {
     httpClient = HttpClients.custom()
       .setConnectionManager(httpConnectionManager)
       .setTargetAuthenticationStrategy(authStrategy)
+      .setRetryHandler((exception, executionCount, context) ->
+          httpRequestRetryHandler.retryRequest(exception, executionCount, context))
       .build();
   }
 
@@ -216,6 +224,8 @@ public abstract class ExchangeServiceBase implements Closeable {
     httpPoolingClient = HttpClients.custom()
         .setConnectionManager(httpConnectionManager)
         .setTargetAuthenticationStrategy(authStrategy)
+        .setRetryHandler((exception, executionCount, context) ->
+            httpRequestRetryHandler.retryRequest(exception, executionCount, context))
         .build();
   }
 
@@ -688,6 +698,31 @@ public abstract class ExchangeServiceBase implements Closeable {
       throw new IllegalArgumentException("Timeout must be greater than zero.");
     }
     this.timeout = timeout;
+  }
+
+  /**
+   * Gets the maximum number of retries after a retryable HTTP I/O failure.
+   *
+   * @return retry count, which defaults to 3
+   */
+  public int getHttpRequestRetryCount() {
+    return httpRequestRetryHandler.getRetryCount();
+  }
+
+  /**
+   * Sets the maximum number of retries after a retryable HTTP I/O failure.
+   * Applies to both normal and pooled clients, including already-created clients.
+   * Apache HttpClient's default exception and request-safety checks still apply.
+   * This does not retry HTTP error statuses or impose an overall time limit.
+   *
+   * @param retryCount retries after the initial attempt; 0 disables retries
+   * @throws IllegalArgumentException if retryCount is negative
+   */
+  public void setHttpRequestRetryCount(int retryCount) {
+    if (retryCount < 0) {
+      throw new IllegalArgumentException("HTTP request retry count must not be negative.");
+    }
+    this.httpRequestRetryHandler = new DefaultHttpRequestRetryHandler(retryCount, false);
   }
 
   /**
