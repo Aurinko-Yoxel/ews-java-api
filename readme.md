@@ -25,6 +25,12 @@ For Documentation on how to use _ews-java-api_ with maven or gradle please refer
 ### Building from source
 To build a JAR from the source yourself, please see [this page](https://github.com/OfficeDev/ews-java-api/wiki/Building-EWS-JAVA-API).
 
+### Releasing this fork
+
+See [RELEASING.md](RELEASING.md) for the version-tag release process, GitHub
+Actions checks, and JitPack dependency coordinates. This legacy project builds
+with JDK 8.
+
 ### HTTP request retries
 
 Configure the number of retries after a retryable HTTP I/O failure on the service:

@@ -84,6 +84,7 @@
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
+        <maven-release-plugin.version>3.3.1</maven-release-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.5</nexus-staging-maven-plugin.version>
         <maven-source-plugin.version>2.4</maven-source-plugin.version>
         <animal-sniffer-maven-plugin.version>1.14</animal-sniffer-maven-plugin.version>
@@ -192,14 +193,15 @@
     </issueManagement>
 
     <ciManagement>
-        <system>travis</system>
-        <url>https://travis-ci.org/OfficeDev/ews-java-api</url>
+        <system>GitHub Actions</system>
+        <url>https://github.com/Aurinko-Yoxel/ews-java-api/actions</url>
     </ciManagement>
 
     <scm>
-        <url>https://github.com/OfficeDev/ews-java-api</url>
-        <connection>scm:git:ssh://git@github.com:OfficeDev/ews-java-api.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:OfficeDev/ews-java-api.git</developerConnection>
+        <url>https://github.com/Aurinko-Yoxel/ews-java-api</url>
+        <connection>scm:git:https://github.com/Aurinko-Yoxel/ews-java-api.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/Aurinko-Yoxel/ews-java-api.git</developerConnection>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
@@ -304,6 +306,15 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release-plugin.version}</version>
+                <configuration>
+                    <tagNameFormat>@{project.version}</tagNameFormat>
+                    <preparationGoals>clean test</preparationGoals>
+                </configuration>
+            </plugin>
             <!-- Deployment / build plugins -->
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>

@@ -1,2 +1,7 @@
 jdk:
   - openjdk8
+
+install:
+  # CI runs tests before creating the GitHub Release. Keep the legacy Checkstyle
+  # verification out of artifact publishing, as in the former deploy script.
+  - mvn -B -DskipTests -Dcheckstyle.skip=true install
