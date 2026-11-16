@@ -23,15 +23,13 @@
     THE SOFTWARE.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.aurinko.ews-java-api</groupId>
     <artifactId>ews-java-api</artifactId>
 
-    <version>2.6.1-SNAPSHOT</version>
+    <version>2.6.1</version>
 
     <name>Exchange Web Services Java API</name>
     <description>Exchange Web Services (EWS) Java API</description>
@@ -77,7 +75,7 @@
             should probably be UTF-8 nowadays. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javaLanguage.version>1.8</javaLanguage.version>
-        <javadoc.doclint.param/>
+        <javadoc.doclint.param />
 
         <!--  Dependencies [BUILD]:  -->
         <maven-checkstyle-plugin.version>2.16</maven-checkstyle-plugin.version>
@@ -201,7 +199,7 @@
         <url>https://github.com/Aurinko-Yoxel/ews-java-api</url>
         <connection>scm:git:https://github.com/Aurinko-Yoxel/ews-java-api.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/Aurinko-Yoxel/ews-java-api.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>2.6.1</tag>
     </scm>
 
     <distributionManagement>
